@@ -1,0 +1,6 @@
+[submodule "Server-Social-network"]
+	path = Server-Social-network
+	url = git@github.com:Brozekm/Server-Social-network.git
+[submodule "Client-Social-network"]
+	path = Client-Social-network
+	url = git@github.com:Brozekm/Client-Social-network.git
