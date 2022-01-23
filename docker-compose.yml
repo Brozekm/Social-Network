@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    container_name: social-network-db
+    volumes:
+      - social-network-data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin12345
+      - PGDATA=/var/lib/postgresql/data/social-network-data
+    shm_size: 256MB
+
+  server:
+    container_name: social-network-server
+    build: ./Server-Social-network
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://social-network-db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin12345
+      - JWT_SECRET=social-network
+    depends_on:
+      - db
+
+  client:
+    container_name: social-network-client
+    build: ./Client-Social-network
+    ports:
+      - 4200:80
+
+volumes:
+  social-network-data:
